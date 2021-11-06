@@ -15,10 +15,11 @@ export interface TodoItem {
 
 interface TodoItemsState {
   todoItems: TodoItem[];
+  error: boolean;
 }
 
 interface TodoItemsAction {
-  type: "loadState" | "add" | "delete" | "toggleDone";
+  type: "loadState" | "add" | "delete" | "toggleDone" | "toggleError";
   data: any;
 }
 
@@ -26,7 +27,7 @@ const TodoItemsContext = createContext<
   (TodoItemsState & { dispatch: (action: TodoItemsAction) => void }) | null
 >(null);
 
-const defaultState = { todoItems: [] };
+const defaultState = { todoItems: [], error: false };
 const localStorageKey = "todoListState";
 
 export const TodoItemsContextProvider = ({
@@ -47,8 +48,25 @@ export const TodoItemsContextProvider = ({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(state));
-  }, [state]);
+    const mockState = JSON.stringify(spamLocalStorage());
+
+    function spamLocalStorage() {
+      return Array.from(Array(100000).keys()).map((e) => ({
+        id: e,
+        title: "some title",
+        details: "some details",
+        done: false,
+      }));
+    }
+
+    try {
+      //localStorage.setItem(localStorageKey, JSON.stringify(state.todoItems));
+      localStorage.setItem(localStorageKey, JSON.stringify(mockState));
+    } catch (error) {
+      console.log(error.message);
+      dispatch({ type: "toggleError", data: error.message });
+    }
+  }, [state.todoItems]);
 
   return (
     <TodoItemsContext.Provider value={{ ...state, dispatch }}>
@@ -72,7 +90,8 @@ export const useTodoItems = () => {
 function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
   switch (action.type) {
     case "loadState": {
-      return action.data;
+      console.log(action.type);
+      return { ...state, todoItems: action.data };
     }
     case "add":
       return {
@@ -101,6 +120,8 @@ function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
           ...state.todoItems.slice(itemIndex + 1),
         ],
       };
+    case "toggleError":
+      return { ...state, error: !state.error };
     default:
       throw new Error();
   }
