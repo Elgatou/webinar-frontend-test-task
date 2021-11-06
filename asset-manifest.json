@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/webinar-frontend-test-task/static/css/main.aff8e029.chunk.css",
+    "main.js": "/webinar-frontend-test-task/static/js/main.71e4c95d.chunk.js",
+    "main.js.map": "/webinar-frontend-test-task/static/js/main.71e4c95d.chunk.js.map",
+    "runtime-main.js": "/webinar-frontend-test-task/static/js/runtime-main.6a956e04.js",
+    "runtime-main.js.map": "/webinar-frontend-test-task/static/js/runtime-main.6a956e04.js.map",
+    "static/js/2.e23a5074.chunk.js": "/webinar-frontend-test-task/static/js/2.e23a5074.chunk.js",
+    "static/js/2.e23a5074.chunk.js.map": "/webinar-frontend-test-task/static/js/2.e23a5074.chunk.js.map",
+    "static/js/3.0924223e.chunk.js": "/webinar-frontend-test-task/static/js/3.0924223e.chunk.js",
+    "static/js/3.0924223e.chunk.js.map": "/webinar-frontend-test-task/static/js/3.0924223e.chunk.js.map",
+    "index.html": "/webinar-frontend-test-task/index.html",
+    "static/css/main.aff8e029.chunk.css.map": "/webinar-frontend-test-task/static/css/main.aff8e029.chunk.css.map",
+    "static/js/2.e23a5074.chunk.js.LICENSE.txt": "/webinar-frontend-test-task/static/js/2.e23a5074.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6a956e04.js",
+    "static/js/2.e23a5074.chunk.js",
+    "static/css/main.aff8e029.chunk.css",
+    "static/js/main.71e4c95d.chunk.js"
+  ]
+}
