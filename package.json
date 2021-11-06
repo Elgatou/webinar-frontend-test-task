@@ -1,6 +1,7 @@
 {
   "name": "webinar-frontend-test-task",
   "version": "0.1.0",
+  "homepage": "https://elgatou.github.io/webinar-frontend-test-task",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
@@ -16,6 +17,7 @@
     "@types/react-dom": "^17.0.8",
     "classnames": "^2.3.1",
     "framer-motion": "^4.1.17",
+    "gh-pages": "^3.2.3",
     "husky": "^7.0.4",
     "immer": "^9.0.6",
     "lint-staged": "^11.2.6",
@@ -35,6 +37,8 @@
     ]
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
