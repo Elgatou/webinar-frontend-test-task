@@ -19,7 +19,13 @@ interface TodoItemsState {
 }
 
 interface TodoItemsAction {
-  type: "loadState" | "add" | "delete" | "toggleDone" | "toggleError";
+  type:
+    | "loadState"
+    | "add"
+    | "delete"
+    | "toggleDone"
+    | "showError"
+    | "closeError";
   data: any;
 }
 
@@ -64,7 +70,7 @@ export const TodoItemsContextProvider = ({
       localStorage.setItem(localStorageKey, JSON.stringify(mockState));
     } catch (error) {
       console.log(error.message);
-      dispatch({ type: "toggleError", data: error.message });
+      dispatch({ type: "showError", data: error.message });
     }
   }, [state.todoItems]);
 
@@ -90,7 +96,6 @@ export const useTodoItems = () => {
 function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
   switch (action.type) {
     case "loadState": {
-      console.log(action.type);
       return { ...state, todoItems: action.data };
     }
     case "add":
@@ -120,8 +125,11 @@ function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
           ...state.todoItems.slice(itemIndex + 1),
         ],
       };
-    case "toggleError":
-      return { ...state, error: !state.error };
+    case "showError":
+      return { ...state, error: true };
+
+    case "closeError":
+      return { ...state, error: false };
     default:
       throw new Error();
   }
