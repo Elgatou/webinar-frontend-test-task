@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { TodoItemsList } from "./features/todoItems/TodoItems";
+import { TodoItemsAlert } from "./features/todoItems/TodoItemsAlert";
 import { TodoItemsContextProvider } from "./features/todoItems/TodoItemsContext";
 import TodoItemForm from "./features/todoItems/TodoItemForm";
 
@@ -38,6 +39,7 @@ function Content() {
       </header>
       <main>
         <TodoItemForm />
+        <TodoItemsAlert />
         <TodoItemsList />
       </main>
     </Container>
