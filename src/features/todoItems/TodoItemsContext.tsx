@@ -5,12 +5,14 @@ import {
   useEffect,
   useReducer,
 } from "react";
+import { useImmerReducer } from "use-immer";
 
 export interface TodoItem {
   id: string;
   title: string;
   details?: string;
   done: boolean;
+  index?: number;
 }
 
 interface TodoItemsState {
@@ -41,7 +43,7 @@ export const TodoItemsContextProvider = ({
 }: {
   children?: ReactNode;
 }) => {
-  const [state, dispatch] = useReducer(todoItemsReducer, defaultState);
+  const [state, dispatch] = useImmerReducer(todoItemsReducer, defaultState);
 
   useEffect(() => {
     function loadState() {
@@ -85,43 +87,39 @@ export const useTodoItems = () => {
   return todoItemsContext;
 };
 
-function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
+function todoItemsReducer(draft: TodoItemsState, action: TodoItemsAction) {
+  const index = action.data.index;
+
   switch (action.type) {
     case "loadState": {
-      return { ...state, todoItems: action.data };
+      draft.todoItems = action.data;
+      break;
     }
-    case "add":
-      return {
-        ...state,
-        todoItems: [
-          { id: generateId(), done: false, ...action.data.todoItem },
-          ...state.todoItems,
-        ],
-      };
-    case "delete":
-      return {
-        ...state,
-        todoItems: state.todoItems.filter(({ id }) => id !== action.data.id),
-      };
-    case "toggleDone":
-      const itemIndex = state.todoItems.findIndex(
-        ({ id }) => id === action.data.id
-      );
-      const item = state.todoItems[itemIndex];
 
-      return {
-        ...state,
-        todoItems: [
-          ...state.todoItems.slice(0, itemIndex),
-          { ...item, done: !item.done },
-          ...state.todoItems.slice(itemIndex + 1),
-        ],
-      };
+    case "add":
+      draft.todoItems.unshift({
+        id: generateId(),
+        done: false,
+        ...action.data.todoItem,
+      });
+      break;
+
+    case "delete":
+      draft.todoItems.splice(index, 1);
+      break;
+
+    case "toggleDone":
+      draft.todoItems[index].done = !draft.todoItems[index].done;
+      break;
+
     case "showError":
-      return { ...state, error: true };
+      draft.error = true;
+      break;
 
     case "closeError":
-      return { ...state, error: false };
+      draft.error = false;
+      break;
+
     default:
       throw new Error();
   }
