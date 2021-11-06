@@ -115,12 +115,12 @@ function todoItemsReducer(draft: TodoItemsState, action: TodoItemsAction) {
 
     case "dragAndDrop":
       const { source, destination } = action.data;
-
-      [draft.todoItems[source.index], draft.todoItems[destination.index]] = [
-        draft.todoItems[destination.index],
-        draft.todoItems[source.index],
-      ];
-
+      if (destination) {
+        [draft.todoItems[source.index], draft.todoItems[destination.index]] = [
+          draft.todoItems[destination.index],
+          draft.todoItems[source.index],
+        ];
+      }
       break;
 
     case "showError":
