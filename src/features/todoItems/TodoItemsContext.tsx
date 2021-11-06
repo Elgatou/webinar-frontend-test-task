@@ -54,22 +54,9 @@ export const TodoItemsContextProvider = ({
   }, []);
 
   useEffect(() => {
-    const mockState = JSON.stringify(spamLocalStorage());
-
-    function spamLocalStorage() {
-      return Array.from(Array(100000).keys()).map((e) => ({
-        id: e,
-        title: "some title",
-        details: "some details",
-        done: false,
-      }));
-    }
-
     try {
-      //localStorage.setItem(localStorageKey, JSON.stringify(state.todoItems));
-      localStorage.setItem(localStorageKey, JSON.stringify(mockState));
+      localStorage.setItem(localStorageKey, JSON.stringify(state.todoItems));
     } catch (error) {
-      console.log(error.message);
       dispatch({ type: "showError", data: error.message });
     }
   }, [state.todoItems]);
