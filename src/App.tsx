@@ -3,9 +3,9 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import { TodoItemsList } from "./TodoItems";
-import { TodoItemsContextProvider } from "./TodoItemsContext";
-import TodoItemForm from "./TodoItemForm";
+import { TodoItemsList } from "./features/todoItems/TodoItems";
+import { TodoItemsContextProvider } from "./features/todoItems/TodoItemsContext";
+import TodoItemForm from "./features/todoItems/TodoItemForm";
 
 const theme = createMuiTheme({
   palette: {
