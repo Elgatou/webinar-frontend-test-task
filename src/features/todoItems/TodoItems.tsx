@@ -33,7 +33,8 @@ const useTodoItemListStyles = makeStyles({
 });
 
 export const TodoItemsList = function () {
-  const { todoItems } = useTodoItems();
+  const { todoItems, dispatch } = useTodoItems();
+
   const classes = useTodoItemListStyles();
 
   const indexedItems = todoItems.slice().map((e, i) => ({ ...e, index: i }));
@@ -48,8 +49,6 @@ export const TodoItemsList = function () {
 
     return 0;
   });
-
-  const { dispatch } = useTodoItems();
 
   function onDragEnd(result: DropResult) {
     dispatch({ type: "dragAndDrop", data: result });
